@@ -29,7 +29,7 @@ function App() {
 
   useEffect(function() {
     if (!isAuth && location.pathname != '/register') {
-      navigate('/')
+      navigate('/register')
     }
   }, [token, navigate])
 

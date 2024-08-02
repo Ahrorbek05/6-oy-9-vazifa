@@ -40,7 +40,7 @@ function Login() {
       if (data.accessToken) {
         localStorage.setItem('user', JSON.stringify(data));
         localStorage.setItem('token', data.accessToken);
-        navigate('/');
+        navigate('/login');
       }
       console.log(data);
     })
@@ -56,7 +56,7 @@ function Login() {
     <div className={styles.LoginCard}>
       <h1>Login</h1>
       <form>
-        <input ref={usernameRef} type="text" placeholder='Foydalanuvchi nomi'/>
+        <input ref={usernameRef} type="text" placeholder='Foydalanuvchi nomi...'/>
         <input ref={passwordRef} type="password" placeholder='Parolni kiriting!'/>
         {
           loading ? (

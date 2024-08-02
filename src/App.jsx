@@ -19,7 +19,7 @@ function App() {
       setIsAuth(true);
     } else {
       if (location.pathname !== '/register') {
-        navigate('/register');
+        navigate('/login');
       }
     }
   }, [token, navigate]);

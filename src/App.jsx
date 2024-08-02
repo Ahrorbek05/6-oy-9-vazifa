@@ -10,49 +10,38 @@ function App() {
   const [token, setToken] = useState('');
   const [isAuth, setIsAuth] = useState(false);
   const location = useLocation();
-
   const navigate = useNavigate();
 
+  useEffect(function() {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setToken(storedToken);
+      setIsAuth(true);
+    } else {
+      if (location.pathname !== '/register') {
+        navigate('/register');
+      }
+    }
+  }, [token, navigate]);
+
   function ProtectedRoute({ isAuthenticated, children }) {
-    if (!isAuthenticated) {
-      navigate('/login');
-    }
-
-    return children;
+    return isAuthenticated ? children : null;
   }
-
-  useEffect(function() {
-    if(localStorage.getItem('token')) {
-      setToken(localStorage.getItem('token'))
-    }
-  }, [])
-
-  useEffect(function() {
-    if (!isAuth && location.pathname != '/register') {
-      navigate('/register')
-    }
-  }, [token, navigate])
-
-  useEffect(function() {
-    setIsAuth(token ? true : false)
-  }, [token])
 
   return (
     <div>
       <Routes>
-      <Route path='/register' element={<Register></Register>}></Route>
-        <Route path='/login' element={<Login></Login>}></Route>
-
+        <Route path='/register' element={<Register />}></Route>
+        <Route path='/login' element={<Login />}></Route>
         <Route
           path='/'
           element={
             <ProtectedRoute isAuthenticated={isAuth}>
-              <Home></Home>
+              <Home />
             </ProtectedRoute>
           }
         ></Route>
-
-        <Route path='*' element={<ErrorPage></ErrorPage>}></Route>
+        <Route path='*' element={<ErrorPage />}></Route>
       </Routes>
     </div>
   );
